@@ -1,0 +1,45 @@
+-- how to change tracker --
+
+-- Tracker Changes --
+--Step No:01 sub sy pehle assorted_code pick karna hai
+select * from mt_pr_in_accessories y
+--update mt_pr_in_accessories y set y.accessory_code = '0280', y.market_value = '6500', y.tax_amount = '1040',
+--y.parttaker_code = '28000010'
+where y.vehicle_detail_code in(
+select x.vehicle_detail_code from mt_vehicles_details x
+where x.assorted_code in(
+select ia.assorted_code,ia.*
+from ins_assorted ia
+where(
+ia.assorted_string like '%84311-02-2024%'
+)))
+
+--Step No:02 uskai bad vehicle_detail_code pick karna hai
+select *
+from mt_vehicles_details m
+where m.assorted_code in('040000166963')
+
+--Step No:03 then check karna hai kai kon sa dala hua hai tracker or uska code pick karlaina hai 
+select *
+from mt_pr_in_accessories mpia
+where mpia.vehicle_detail_code in('1836333') for update
+
+--Step No:04 is table mai sy Tracker(Trasur) ka code,amount,tax_amount,parttaker_code laina hai
+select *
+from ins_acessories ii
+where ii.accessory_code ='0280'
+where ii.accessory_name like upper('%Sahara%')
+
+--step No:05 then code Tracker(trasur) '0266' or market_value mai 
+--amount ki value or tax_amount ki value or parttaker code enter kardaina hai
+select *
+from mt_pr_in_accessories mpia
+where mpia.vehicle_detail_code in('1824502') for update
+
+0280 -- sahara (tracking)
+6500.00 --amount
+1040.00 --tax amount
+28000010 --parttaker code
+
+select * from mt_vehicles_details where vehicle_detail_code = '1836333'
+select * from ins_assorted where assorted_code = '050000728620'

@@ -1,0 +1,3 @@
+-- Check Locks in TMSV2 --
+SELECT vb1.*, vb2.OBJECT_NAME FROM V$locked_Object vb1, dba_objects vb2
+where vb1.OBJECT_ID = vb2.OBJECT_ID

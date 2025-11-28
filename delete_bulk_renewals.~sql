@@ -1,0 +1,109 @@
+-- delete bulk renewal notices --
+declare 
+--v_result varchar(15);
+begin
+  for rec in (
+select *
+from ins_assorted ia
+where(
+ia.assorted_string like '%66920%' or
+ia.assorted_string like '%66486%' or
+ia.assorted_string like '%66741%' or
+ia.assorted_string like '%66847%' or
+ia.assorted_string like '%66886%' or
+ia.assorted_string like '%67124%' or
+ia.assorted_string like '%67205%' or
+ia.assorted_string like '%67426%' or
+ia.assorted_string like '%67377%' or
+ia.assorted_string like '%68235%' or
+ia.assorted_string like '%68806%' or
+ia.assorted_string like '%68581%' or
+ia.assorted_string like '%69120%' or
+ia.assorted_string like '%69115%' or
+ia.assorted_string like '%69118%' or
+ia.assorted_string like '%69438%' or
+ia.assorted_string like '%69469%' or
+ia.assorted_string like '%69534%' or
+ia.assorted_string like '%69619%' or
+ia.assorted_string like '%69832%' or
+ia.assorted_string like '%70224%' or
+ia.assorted_string like '%70184%' or
+ia.assorted_string like '%69907%' or
+ia.assorted_string like '%70230%' or
+ia.assorted_string like '%69619%' or
+ia.assorted_string like '%70502%' or
+ia.assorted_string like '%70545%' or
+ia.assorted_string like '%70431%' or
+ia.assorted_string like '%70614%' or
+ia.assorted_string like '%70615%' or
+ia.assorted_string like '%70991%' or
+ia.assorted_string like '%70986%' or
+ia.assorted_string like '%71042%' or
+ia.assorted_string like '%71145%' or
+ia.assorted_string like '%68235%' or
+ia.assorted_string like '%65558%' or
+ia.assorted_string like '%71859%' or
+ia.assorted_string like '%72088%' or
+ia.assorted_string like '%71589%' or
+ia.assorted_string like '%71591%' or
+ia.assorted_string like '%71980%' or
+ia.assorted_string like '%71979%' or
+ia.assorted_string like '%71809%' or
+ia.assorted_string like '%72107%' or
+ia.assorted_string like '%72341%' or
+ia.assorted_string like '%72297%' or
+ia.assorted_string like '%72336%' or
+ia.assorted_string like '%72262%' or
+ia.assorted_string like '%66043%' or
+ia.assorted_string like '%65558%' or
+ia.assorted_string like '%72553%' or
+ia.assorted_string like '%72555%' or
+ia.assorted_string like '%72562%' or
+ia.assorted_string like '%72545%' or
+ia.assorted_string like '%72582%' or
+ia.assorted_string like '%72987%' or
+ia.assorted_string like '%72964%' or
+ia.assorted_string like '%72951%' or
+ia.assorted_string like '%73193%' or
+ia.assorted_string like '%73299%' or
+ia.assorted_string like '%73522%' or
+ia.assorted_string like '%73525%' or
+ia.assorted_string like '%73560%' or
+ia.assorted_string like '%73529%' or
+ia.assorted_string like '%73637%' or
+ia.assorted_string like '%73697%' or
+ia.assorted_string like '%73737%' or
+ia.assorted_string like '%73963%') and ia.document_code = '08'
+and ia.sup_by is null
+and ia.sup_date is null
+)
+loop
+ -- proc_unpost_document(rec.assorted_code,v_result);
+ DELETE FROM INS_PREMIUM WHERE SUBSTR(REFERENCE_CODE, 1, 12) = rec.assorted_code;
+    DELETE FROM INS_PREMIUM
+     WHERE REFERENCE_CODE IN
+           (SELECT VEHICLE_DETAIL_CODE
+              FROM MT_VEHICLES_DETAILS
+             WHERE ASSORTED_CODE = rec.assorted_code);
+    DELETE FROM MT_PR_IN_ACCESSORIES
+     WHERE VEHICLE_DETAIL_CODE IN
+           (SELECT VEHICLE_DETAIL_CODE
+              FROM MT_VEHICLES_DETAILS
+             WHERE ASSORTED_CODE = rec.assorted_code);
+    DELETE FROM INS_PERIL_RIDERS_POLICY
+     WHERE VEHICLE_DETAIL_CODE IN
+           (SELECT VEHICLE_DETAIL_CODE
+              FROM MT_VEHICLES_DETAILS
+             WHERE ASSORTED_CODE = rec.assorted_code);
+    DELETE FROM MT_VEHICLES_DETAILS WHERE ASSORTED_CODE = rec.assorted_code;
+    DELETE FROM MT_VEHICLES_DETAILS WHERE ASSORTED_CODE = rec.assorted_code;
+    DELETE FROM INS_COINSURANCES WHERE ASSORTED_CODE = rec.assorted_code;
+    DELETE FROM INS_FINANCIAL_INSTITUTE_INTERE
+     WHERE ASSORTED_CODE = rec.assorted_code;
+    DELETE FROM INS_ASSORTED_WARRANTIES WHERE ASSORTED_CODE = rec.assorted_code;
+    DELETE FROM INS_ASSORTED_GEN_CONDITIONS WHERE ASSORTED_CODE = rec.assorted_code;
+    DELETE FROM INS_ASSORTED_CLIENTS WHERE ASSORTED_CODE = rec.assorted_code;
+        DELETE FROM INS_ASSORTED WHERE ASSORTED_CODE = rec.assorted_code;
+        commit;
+        end loop;
+        end;

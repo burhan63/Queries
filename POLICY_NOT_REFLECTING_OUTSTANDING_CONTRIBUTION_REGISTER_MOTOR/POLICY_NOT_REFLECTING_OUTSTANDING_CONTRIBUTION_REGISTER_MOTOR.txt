@@ -1,0 +1,40 @@
+-- Policy not reflecting on Outstanding Contr. Register Motor --
+
+--Step No : 01. sub sy pehle assorted_codes pick karna hai.
+-- Query:
+select * from ins_assorted ia 
+where ia.assorted_string like '%Assorted_string%';
+
+
+-- Step no : 02. assorted_code pick karne kai bad humain agency check karni hai
+-- ins_assorted mai bh or ins_assorted_clients mai bh same honi chahiye agar same
+-- nh hai tw jo ins_assorted mai agancy hai wohi humain ins_assorted_clients mai
+-- dalni hai takai matched hojaey.
+
+-- Query:
+select * from ins_assorted_clients iac
+where assorted_code in(
+select * from ins_assorted ia 
+where ia.assorted_string like '%Assorted_string%');
+
+
+-- Step no: 03. agar agency matched hai dono sides tw humain ins_premium_det
+-- mai check karna hai kai wahan mode_code = 02 per entry tw nh bani hui agar
+-- bani hui hai tw iska matlab Outstanding nh hai paid hai yeh bh reason hosakhta
+-- hai report mai na ane ka.
+
+Query:
+select * from ins_premium_det pd
+where pd.assorted_code = 'assorted_code';
+
+
+-- Step no: 04. agar entry na mile ins_premium_det mai tw phr aik hi reason
+-- hosakhta hai wo yeh hai kai humain ins_assorted mai daikhna hai kai is_valid
+-- kia hai agar 'N' hai tw usey 'Y' kardaina hai.
+
+Query:
+select is_valid from ins_assorted ia
+where ia.assorted_string like '%%';
+
+-- is_valid ko 'Y' karne kai bad report front sy run karni hai or verify karna 
+-- hai policies reflect hojaey gi InshaAllah.

@@ -1,0 +1,17 @@
+-- Inquiry Screen Issue -- 
+Agar apkai pass complain aye kai reg no yah eng no yah chassis no sy data reflect nh 
+horaha following bellow araha hai.
+Error Occured, Please contact adminitrator.
+=> tw apko karna yeh hai kai apko policy code laina hai or is query mai
+dalna ha.
+Query:
+ 
+SELECT A.PRT_VEHICLE_DETAIL_CODE,A.ADDITION_VD_CODE,A.* FROM MT_VEHICLES_DETAILS A
+WHERE ASSORTEd_CODE IN 
+(SELECT ASSORTED_CODE FROM INS_ASSORTED WHERE NVL(POLICY_CODE,ASSORTED_CODE)='040000134586');
+
+ab is mai kisi bh column nh chairna humain karna yeh hai kai humain assorted code
+per sort karna hai or vehicle_detail_code or pert_assorted_code ko zik zak match
+karna hai q kai renewal ban jata hai or pert_assorted_code policy wala ajata hai 
+humain bus last endorsement sy zik zak vehicle detail code daikhna hai bus issue
+resolve hojaey ga InshaAllah.

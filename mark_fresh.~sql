@@ -1,0 +1,30 @@
+--Mark Fresh --
+
+--Check Month
+--Check FRR
+select * from ins_assorted a
+where a.assorted_string like '%64204-00020-10-2022%' --for update
+
+
+
+
+--Check FRR
+select * from mt_vehicles_details vd
+where vd.assorted_code = '070000112871' --for update
+
+
+--it should be null
+select * from ins_premium_det pd
+where pd.assorted_code = '070000112871'
+
+
+
+
+--it will check last three column should be same and check RESH_PCT,RENEW_PCT,ROLL_PCT will be same
+select * from motor_commission_setup n
+where n.client_code = '08004499'
+
+
+
+select * from ins_premium pm
+where pm.reference_code = '070000112871'

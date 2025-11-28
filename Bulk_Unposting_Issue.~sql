@@ -1,0 +1,35 @@
+-- BULK UNPOSTING METHOD --
+SELECT * FROM INS_PREMIUM_DET PD
+WHERE PD.ASSORTED_CODE IN(
+SELECT IA.ASSORTED_CODE FROM INS_ASSORTED IA 
+where(
+ia.assorted_string like '%85822-03-2024%' or
+ia.assorted_string like '%85823-03-2024%'
+))
+ORDER BY 1 ASC
+
+
+
+-- Bulk Unposting Method --
+declare
+v_result varchar2(15);
+begin
+   for rec in (
+select *--ia.assorted_code
+ from ins_assorted ia 
+where
+(
+ia.assorted_string like '%85822-03-2024%' or
+ia.assorted_string like '%85823-03-2024%'
+))loop
+proc_unpost_document(rec.assorted_code, v_result);
+end loop;
+end;
+
+-- FOR CANCEL PROCEDURE --
+proc_cancel_document
+
+-- FOR UNPOSTING PROCEDURE --
+proc_unpost_document
+
+

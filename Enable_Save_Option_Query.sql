@@ -1,0 +1,13 @@
+-- how to enable save option in installment --
+--step no : 01 sub sy pehle assorted code pick karna hai
+--query:
+select * from ins_assorted ia 
+where ia.assorted_string like '%22799-08-2024%';
+
+--step no : 02 uskai bad ins_installment_master table mai jana hai or aik nechey wale koo delete kardaina hai
+--query:
+select * from ins_installment_master inm 
+where inm.assorted_code = '040000180540'
+for update;
+
+--last wale ko ura daina hai save option enable hojaey ga

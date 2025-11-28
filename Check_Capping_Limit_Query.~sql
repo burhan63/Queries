@@ -1,0 +1,27 @@
+--CHECK CAPPING LIMIT --
+select func_get_amount_by_type(IA.POLICY_CODE, '040000167197') TOTALGROSS,
+                       func_get_amount_by_type(IA.ASSORTEd_CODE, '050000724908') GROSS,
+                       NVL(IAC.COMMISSION_AMOUNT, 0) COMM_AMOUNT,
+                       IAC.AGENCY_CODE,
+                       IAGC.COMMISSION_RATE,
+                       NVL((SELECT SUM(COMMISSION_AMOUNT)
+                             FROM INS_ASSORTED_CLIENTS X, INS_ASSORTED Y
+                            WHERE X.ASSORTED_CODE = Y.ASSORTED_CODE
+                              AND NVL(Y.POLICY_CODE, Y.ASSORTED_CODE) =
+                                  '040000167197'
+                              AND X.AGENCY_CODE = IAC.AGENCY_CODE),
+                           0) TOTAL_COMMISSION
+                  from ins_assorted          ia,
+                       ins_assorted_clients  iac,
+                       ins_agent_commissions iagc
+                 where ia.assorted_code = iac.assorted_code
+                   and iac.agency_code = iagc.parttaker_code
+                   and ia.policy_type_code = iagc.policy_type_code
+                   and ia.assorted_code = '050000724908'
+                   
+                   
+select * from ins_assorted 
+where assorted_code = '050000724908'
+
+
+

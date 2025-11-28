@@ -1,0 +1,24 @@
+-- MAX POLICY NO --
+select max(ia.assorted_code),  ia.assorted_string
+from ins_assorted ia, ins_policy_types ipt
+where ia.policy_type_code = ipt.policy_type_code
+and ipt.class_code='02'
+and ia.document_code='04'
+group by  ia.assorted_string
+order by 1 desc
+
+select * from ins_claim i 
+where i.insurance_type in(
+select ai.assorted_code,AI.* from ins_assorted ai where 
+(
+ai.assorted_string like '%021554-02-2024%') or
+ai.assorted_string like '%70310-00002-12-2023%' or
+ai.assorted_string like '%70310-00003-12-2023%' or
+ai.assorted_string like '%70310-00004-12-2023%' or
+ai.assorted_string like '%70310-00005-12-2023%' or
+ai.assorted_string like '%70310-00006-12-2023%'
+))
+
+
+SELECT * FROM INS_POLICY_CLASS IPT
+WHERE 

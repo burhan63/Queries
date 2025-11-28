@@ -1,0 +1,18 @@
+-- Tracker Payment issue as per Allocation Number --
+Step No: 01.
+
+select * from ins_assorted
+where assorted_string like '%97739-09-2024%' --pick assorted code 
+
+
+Step No: 02.
+
+select * from ins_premium_mast 
+where premium_rcv_code = '31Oct240049' --pehle check karna hai kai unpost hona chahiye. if unpost hai tw phr kardaina hai
+
+Step No : 03.
+
+select * from ins_premium_det pd 
+where pd.assorted_code = '040000184491' and pd.mode_code = '09' for update
+
+-- apko wo aik allocation number daikhna hoga jo wo daiga wohi hona chahiye. or current month ka hona chahiye allocation

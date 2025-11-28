@@ -1,0 +1,193 @@
+-- UNPOSTING --
+SELECT func_assorted_string(ia.assorted_code)POLICY,
+IA.CHANNEL_CODE,IA.DEALER_CODE, func_get_amount_by_type(IA.ASSORTED_CODE,'GROSS')GROSS,ia.it_remarks,ia.remarks,ia.* 
+FROM INS_ASSORTED IA 
+WHERE IA.ASSORTED_STRING LIKE '%43570-07-2024%' OR IA.ASSORTED_STRING LIKE '%43569-07-2024%'
+OR IA.ASSORTED_STRING LIKE '%43571-07-2024%' --Or IA.ASSORTED_STRING LIKE '%92039%' 
+--OR IA.ASSORTED_STRING LIKE '%92132%' --OR IA.ASSORTED_STRING LIKE '%42783-06-2024%' --OR IA.ASSORTED_STRING LIKE '%41815-05-2024%'
+--WHERE IA.CLIENT_CODE = '08816641'   
+--where nvl(ia.policy_code, ia.assorted_code) = '040000149503'   for update     
+--and ia.ent_by like '%SALEEM%'
+--AND IA.DOCUMENT_CODE = '05' AND IA.SUP_BY IS NULL AND IA.SUP_DATE IS NULL
+--OR IA.ASSORTED_STRING LIKE '%79623-00006-12-2023%'
+WHERE ia.assorted_code  in('050000766857')
+--where ia.endorsement_code in('050000766693')
+--and ia.document_code = '05' 
+FOR UPDATE;
+
+203-1-4-2-87-79562-11-2023
+050000719000
+endorsement_string : 101-1-5-2-06-0000034067-11-2023 Uzair ahmed issue
+09000128 --custodian
+31000179 -- Previous dealer
+37000153 --Current chaneel
+
+-- CHECK GENERATE AGAINST
+SELECT * FROM INS_ASSORTED I 
+WHERE I.GENERATE_AGAINST IN (
+'040000178598'
+)
+
+
+
+-- CHECK PREMIUM_DET RT --
+SELECT * FROM INS_PREMIUM_DET PD WHERE PD.ASSORTED_CODE IN(
+'040000178598'
+) 
+and pd.mode_code = '02'
+
+    
+--CHECK CLAIM --
+SELECT * FROM INS_CLAIM IC 
+WHERE IC.INSURANCE_TYPE IN (
+'040000178598'
+)
+
+SELECT * FROM MT_VEHICLES_DETAILS VD WHERE vd.assorted_code IN(
+'050000762283'
+)
+--AND VD.VEHICLE_SEQ_NO = 76
+ORDER BY VD.VEHICLE_SEQ_NO ASC
+for update
+  
+050000759036
+
+select * from crm_welcome_call where assorted_code = '070000161913' for update
+
+
+FOR UPDATE;
+
+SELECT * FROM GL_VOCH_MAST GL
+WHERE GL.SEQ_NO IN('2895512') FOR UPDATE
+
+-- CHECK COMMISSION AMOUNT --
+SELECT VD.ENG_NO,VD.CHASSIS_NO,VD.REG_NO,VD.COLOR_CODE,VD.MODEL,VD.INSURED_SUB_TYPE_NAME FROM MT_VEHICLES_DETAILS VD
+WHERE VD.ASSORTED_CODE = '040000141351' FOR UPDATE;
+
+
+SELECT IP.MOTOR_ACTIVE,IP.* FROM INS_PARTTAKER IP 
+--WHERE IP.PARTTAKER_CODE i'Traders')
+--where IP.PARTTAKER_NAME LIKE '%Javeria%' 
+WHERE IP.CATEGORY_PARTTAKER_CODE = '37' FOR UPDATE
+
+
+SELECT func_get_amount_by_type(IAC.ASSORTED_CODE,'GROSS')GROSS,IAC.*
+ FROM INS_ASSORTED_CLIENTS IAC
+WHERE IAC.ASSORTED_CODE IN(
+'040000172448','040000172449','040000174810','040000174673'
+)
+FOR UPDATE 
+  
+SELECT * FROM INS_PARTTAKER_CATEGORY
+
+select func_get_amount_by_type(ia.assorted_code,'GROSS')*1 gross,
+func_get_amount_by_type(ia.assorted_code,'FIF')*1 fif,
+func_get_amount_by_type(ia.assorted_code,'FED')*1 fed,
+func_get_amount_by_type(ia.assorted_code,'STAMPDUTY')*1 SD,
+func_get_amount_by_type(ia.assorted_code,'NET')*1 net, (Select i.parttaker_name
+from ins_parttaker i
+where i.parttaker_Code =ia.agency_code)agent ,ia.*
+from ins_assorted_clients ia
+where ia.assorted_code in (
+'040000176006'
+)
+
+select *
+from ins_premium_det ipd
+where ipd.assorted_code='050000756696'
+ 
+
+SELECT * FROM INS_CITY IC 
+--WHERE IC.CITY_NAME LIKE '%LAHORE%'
+WHERE IC.CITY_CODE = '05'
+
+SELECT * FROM INS_COMMISSION_PAYABLE IPC
+WHERE IPC.ASSORTED_CODE = '040000165773'
+
+select * from ins_claim z where z.claim_string like '%66663-01-2023%' for update;
+
+01 karni hai loss type
+ins_claim_update disable first
+
+SELECT * FROM INS_ASSORTED_GEN_CONDITIONS IGC
+WHERE IGC.ASSORTED_CODE = '040000178547' FOR UPDATE
+
+SELECT MAX(FUNC_ASSORTED_STRING(K.ASSORTED_CODE)POLICY),K.* FROM INS_ASSORTED K, INS_POLICY_TYPES P, INS_POLICY_CLASS L
+WHERE K.POLICY_TYPE_CODE = P.POLICY_TYPE_CODE
+AND P.CLASS_CODE = L.CLASS_CODE
+AND K.POLICY_TYPE_CODE <> 77
+AND K.IS_VALID = 'Y'
+AND L.CLASS_CODE = '02'
+AND TRUNC(K.ENT_DATE) BETWEEN '27-DEC-2023' AND '28-DEC-2023'
+AND K.DOCUMENT_CODE = '04'
+ORDER BY 1 ASC
+
+select * from ins_branch
+where branch_code = '03'
+
+select * from ins_colors
+where color_name like '%Hang %'
+where city_code = '05'
+
+
+
+select * from ins_policy_class where class_code = '06'
+
+select * from ins_vessel iv
+--where iv.vessel_name like '%X-PRESS%'
+order by iv.vessel_code asc
+for update
+  
+SELECT * FROM MT_VEHICLES
+where vehicle_code in('1620','1589')
+WHERE VEHICLE_NAME LIKE '%SERES%'
+
+SELECT * FROM v_occupation
+where active = 'Y'
+order by record_id asc   --V_OCCUPATION1 O
+AND O.ACTIVE = 'Y'
+
+select * from crm_welcome_call where assorted_code in('070000161214','050000761869') for update
+
+
+select *
+from ins_assorted ia
+where nvl(ia.policy_code, ia.assorted_code)='040000139052'
+where ia.assorted_string like '%67525%'
+
+  
+
+select * from gl_voch_det
+where seq_no in ('2689766','2675315','2682536')
+
+SELECT * FROM INS_POLICY_TYPES 
+WHERE POLICY_TYPE_CODE = '29'
+
+select * from ins_agencies 
+WHERE PARTTAKER_CODE = '08804117'
+
+select * from ins_claim 
+where claim_string like '%0000134805%'
+
+select * from ins_assorted
+where assorted_code = '040000149660'
+
+SELECT * FROM SY_USERS WHERE USER_CD LIKE '%ABRAHAM%'
+
+select * from ins_policy_approval
+where trunc(ent_date) = trunc(sysdate)
+order by 1 asc
+
+
+select * from ins_assorted where 
+assorted_code in(
+'050000752328',
+'040000170676',
+'040000169954',
+'040000169953'
+)
+
+select * from ins_parttaker 
+where parttaker_code = '08812272'
+and category_parttaker_code = '08'
+

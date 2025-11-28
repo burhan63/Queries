@@ -1,0 +1,8 @@
+-- daily Check for reset error in 10.6.100.94 --
+select *
+from crm_email_notifications a
+where a.error_message is not null
+and a.subject like '%Pay%'
+and a.notification_id <>'140053'
+order by 1
+for update

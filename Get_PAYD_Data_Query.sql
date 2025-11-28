@@ -1,0 +1,82 @@
+--PAYD GET ENDORSEMENT--
+--Updated 11-June-2024 --
+SELECT 
+       nvl(ia.policy_code,ia.assorted_code)assorted_code,
+               FUNC_ASSORTEd_STRING(nvl(ia.policy_code,ia.assorted_code))policy_no,
+                   ia.period_from,
+               ia.issue_date,
+               ia.period_to_date,
+               case when add_months(period_from,months_between(sysdate,period_from)) > period_to_date then null
+  else  add_months(period_from ,
+floor(months_between(sysdate,period_from))) end billing_start,
+
+
+
+case when add_months(period_from,months_between(sysdate,period_from))> period_to_date  then null else
+  add_months(period_from ,
+floor(months_between(sysdate,period_from)+1))-1 end billing_end,
+               nvl(ia.pay_as_you_go,'N')pay_as_you_go,
+               func_get_vehicle_specs_vd(ia.assorted_code,'E',mvd.vehicle_detail_code)ENGNO,
+               func_get_vehicle_specs_vd(ia.assorted_code,'C',mvd.vehicle_detail_code)CHNO,
+               func_get_vehicle_specs_vd(ia.assorted_code,'V',mvd.vehicle_detail_code)VNAME,
+               func_get_vehicle_specs_vd(ia.assorted_code,'R',mvd.vehicle_detail_code)REGNO,
+           --    func_get_vehicle_specs_vd(ia.assorted_code,'S',mvd.vehicle_detail_code)SEATING,
+           --    func_get_vehicle_specs_vd(ia.assorted_code,'B',mvd.vehicle_detail_code)BODYTYPE,
+           --    func_get_vehicle_specs_vd(ia.assorted_code,'L',mvd.vehicle_detail_code)COLOR,
+           --    func_get_vehicle_specs_vd(ia.assorted_code,'Q',mvd.vehicle_detail_code)CC,
+            --   func_get_vehicle_specs_vd(ia.assorted_code,'M',mvd.vehicle_detail_code)VYEAR,
+              nvl(func_get_vehicle_specs_vd(ia.assorted_code,'P',mvd.vehicle_detail_code),ia.insured_name)PNAME,
+                  func_get_vehicle_specs_vd(ia.assorted_code,'H',mvd.vehicle_detail_code)EMAIL,
+            --         func_get_vehicle_specs_vd(ia.assorted_code,'X',mvd.vehicle_detail_code)PHONE,
+                        nvl(func_get_vehicle_specs_vd(ia.assorted_code,'N',mvd.vehicle_detail_code),ip.nic)CNIC,
+              --             func_get_vehicle_specs_vd(ia.assorted_code,'A',mvd.vehicle_detail_code)ADDRESS,
+               vehicle_info(mvd.vehicle_detail_code, 'S')sum_covered,
+             --  vehicle_info(mvd.vehicle_detail_code, 'E')eng_no,
+             --  vehicle_info(mvd.vehicle_detail_code, 'C')chno,
+             --  vehicle_info(mvd.vehicle_detail_code, 'R')regno,
+             --  vehicle_info(mvd.vehicle_detail_code, 'S')sum_covered,
+               --V_UNIQUE_CODE,
+               ia.assorted_code,
+               '17-50-9805-120-46' stno,
+               IA.CLIENT_CODE, mvd.vehicle_detail_code,mvd.vehicle_seq_no,
+               DECODE((SELECT COUNT(1) FROM MT_VEHICLES_DETAILS
+                                      WHERE ASSORTEd_CODE = IA.ASSORTED_CODE),1,'INDIVIDUAL','CORPORATE')NAME,
+               --vpc.NAME,
+               ip.parttaker_name,
+               (select max(rate) from ins_premium
+               where reference_code = ia.assorted_code
+               and  charge_code ='000423')net_rate,
+                 nvl(ia.payd_rate,2.5)  default_rate,
+                ''endorsement_no,''endorsement_date,'A' vehicle_status/*,
+                (select  count(distinct mpd.billing_start_from)
+                from mt_pay_details mpd
+                where mpd.assorted_code = ia.assorted_code
+                and mpd.endorsement_code is null)billing_start_from*/
+          FROM INS_ASSORTED IA, mt_vehicles_details mvd, ins_parttaker ip--, vw_parttaker_category_setup vpc
+         WHERE pay_as_you_go='Y'
+         and ia.assorted_code = mvd.assorted_code
+         and ia.document_code in ('04','07')
+        and  ia.policy_type_code <>77
+         and   ia.client_code = ip.parttaker_code
+         and   ia.sup_by is not null
+         and mvd.eng_no <> '5MSM8200164'
+         and  ia.assorted_code not in ('040000096284')
+          and  ia.period_to_date+5 >=sysdate 
+         and  ia.client_code <>'08801988'
+       --  and ia.assorted_code='040000139281'
+         and ia.assorted_code not  in (select ic.insurance_type
+         from ins_claim ic, ins_assorted a
+         where nvl(ic.claim_status_id,0) not in ('6','7')
+         and ic.insurance_type = a.assorted_code
+        -- and a.client_code not in ('08800738','08807768')n
+         and a.assorted_code not in (Select ip.reference_code
+         from ins_premium ip
+         where ip.charge_code ='000423'
+         and ip.rate ='0.99')
+         and nvl(a.pay_as_you_go,'o')='Y'
+         and a.document_code in ('04','07')
+         and a.period_to_date+5 >=sysdate 
+         )
+         --and mvd.vehicle_detail_code='1792108' agar claim open hai check karna hai yshan
+       --   and nvl(vehicle_info(mvd.vehicle_detail_code, 'S'),0)<>-1
+          and nvl(ia.payd_excluded,'N') <> 'Y';

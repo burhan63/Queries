@@ -1,0 +1,25 @@
+-- Hospital Name change in Claim Health --
+
+1. Sub sy pehle claim string sy claim code nikal laina hai
+Query:
+select * from ins_claim
+where claim_string like '%137186%';
+
+2. Then humain ins_claim_due_info mai check karna hai claim_paid_to_name or humain
+wahan name change karna hai.
+Query:
+select * from ins_claim_due_info ij
+where ij.claim_code = '';
+
+3. If agar phr bh name change na ho then humain  claim_paid_to_code ko bh change
+karna hoga ins_parttaker mai name search karna hai or daikhna hai kai kia dala hua
+hai.
+
+-> sub sy pehle ins_parttaker sy parttaker_code pick karna hai.
+Query:
+SELECT * FROM INS_PARTTAKER
+WHERE CATEGORY_PARTTAKER_CODE = '29'
+AND PARTTAKER_NAME LIKE '%MUMTAZ%';
+
+4. Parttaker_code pick karne kai bad humain ins_claim_due_info mai paid_to_code
+mai dal daina hai update hoaey ga.

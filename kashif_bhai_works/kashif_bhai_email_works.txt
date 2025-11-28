@@ -1,0 +1,34 @@
+-- Kashif Bhai Works --
+
+1. Agar Kisi participant ko email mai dalwana hai Third_Party_Liability_Daily_Report.rpt
+mai tw meri, kashif bhai ki or shahzad sir bcc mai jaey gey baqui cc mai 
+
+Query:
+select *
+from service_email
+where report_name='Third_Party_Liability_Daily_Report.rpt';
+
+
+2. Agar CSO reports na jaey tw pehle humain log check karna hai 10.8.100.94 per
+\\10.8.100.94\c$\service\CSO_Report\bin\Debug\Logs then humain aik query run
+karni hai.
+
+Query:
+Update service_email set  IS_ACTIVE='N' where DESCRIPTION='YES';
+
+uskai bad humain service ko restart kardaina hai jahan sy notification emails ki
+karte hain.
+
+3. Agar humain koi report chahiye tw humain updated reports nikal laini hai 
+\\10.8.100.94\c$\service\CSO_Report\bin\Debug\ReportPdf.
+
+
+4. If agar 10.8.100.196 per agar service start karne nh dai raha hai tw humain 
+cmd per jana hai or aik command run karni hai.
+
+cmd : netstat -ano | find /i "80"
+
+is sy sari ports ajaey gi or agey IIS likha hoga humain task manager mai jana hai
+or services mai jakar PID per sort karna hai or humain IIS kai agey jo PORT arahi hogi
+humain wo search karni hai or usey stop karna phr uskai bad chalana hai error nh
+dai ga.

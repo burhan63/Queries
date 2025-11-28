@@ -1,0 +1,25 @@
+-- RM Taging on Active Policies --
+-- Step No : 01 sub sy pehle humain assorted_codes nikalne hain yah tw wo sheet 
+-- dai gey yah aik aik hongi mai aik wali ki example bata raha hn.
+-- Query:
+select ia.rm_code,ia.* from ins_assorted ia 
+where ia.assorted_string like '%3155-04-2024%' and ia.policy_type_code = '76';
+
+-- Step No : 02 Assorted_codes nikalne kai bad humain aik user name mentioned
+--kia hua hoga is case mai mujhy zafar ahmed or noman naeem tha tw mujhy unkai
+-- RM Codes nikalne hain ins_parttaker sy.
+-- Query:
+select * from ins_parttaker ip 
+where ip.parttaker_name like '%Noman%'
+and ip.category_parttaker_code = '38'
+and ip.active = 'Y'
+
+--Note : RM means RelationShip Manager hai or uska code 38 hai.
+
+
+-- Step No : 03 RM Code kai bad humain ins_assorted mai RM_Code mai update kardaina
+-- hai taging hojaey gi.
+--Query: 
+Update ins_assorted ia set ia.rm_code = '38000001' 
+where ia.assorted_code = 'Assorted_code' 
+and ia.policy_type_code = '76';

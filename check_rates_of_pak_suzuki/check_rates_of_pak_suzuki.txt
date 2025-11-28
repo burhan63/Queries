@@ -1,0 +1,7 @@
+-- check rates of Pak suzuki --
+select * from  sy_users
+--SET PS_RATE ='4.25'
+where user_cd like '31%'
+and region_name ='CENTRAL'
+AND PS_RATE_CAR IS NULL
+SET PS_RATE='4.25'

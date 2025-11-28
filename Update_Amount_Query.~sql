@@ -1,0 +1,41 @@
+-- UPDATE AMOUNT --
+SELECT * FROM INS_PREMIUM_MAST IPM
+WHERE IPM.VOUCHNO IN('24-03-1138','24-03-1154','24-03-1158','24-03-1164','24-03-1166','24-03-1167','24-03-1168',
+'24-03-1170','24-03-1173','24-03-1174','24-03-1178','24-03-1181','24-03-1188','24-03-1196')
+AND IPM.PAYMENT_TYPE = 'Receipt RV'
+FOR UPDATE;
+
+2645262
+--Comments or IT Remarks of Updation Check Amount --
+Request by Mr. Muhammad Adam (Accounts) 26-Mar-2024
+Change cheque Amount 382,500/- instead of this 385000.
+
+
+--Comments or IT Remarks of Updation Pay name --
+Request by Mr. Muhammad Adam (Accounts) 25-Nov-2023
+Change Pay Name VICTOR SARDAR(35201-7360400-1) instead of this Blank.
+
+
+--Comments or IT Remarks of Updation Check Number --
+Request by Mr. Muhammad Adam (Accounts) 29-Feb-2024
+Change cheque Number 75672483 instead of this 75672482
+Change Pay Name ALKHIDMAT FAREEDA YAQOOB HOSPITAL instead of this AL-KHIDMAT HOSPITAL.
+
+
+-- unpost vouvher --
+
+select * from gl_voch_mast h
+where h.vouchno IN2640480
+2640431
+2640492
+2640571
+
+and h.posted_by is null
+and h.post_dt is null for update
+
+-- erase post_by and post_date remember disale gl_vooch_mast trigger and then erase --
+
+select * from gl_voch_mast bb 
+where bb.vouchno IN('24-02-0673','24-02-0673','24-02-0680','24-02-0683','24-02-0685','24-02-0692','24-02-0697','24-02-0717')
+AND BB.Posted_By is null
+and bb.post_dt is null

@@ -1,0 +1,107 @@
+-- deletion Health --
+select * from ins_assorted ia 
+where ia.assorted_string like '%24543-03-2024%';
+
+declare
+begin
+  for rec in (
+select *--count(*)
+from ins_health_employee_info a
+where a.assorted_code ='050000728166'
+--and a.emp_code='51414646'
+and nvl(a.status_flag,'o')='R'
+and a.status_date='16-Feb-2024'
+and nvl(a.relation,'E')='E'
+and a.emp_code = a.change_emp_code
+and a.health_id in ('600674',
+'657394',
+'598171',
+'598239',
+'598607',
+'598676',
+'598815',
+'599051',
+'599434',
+'599867',
+'599976',
+'600364',
+'600517',
+'600561',
+'600637',
+'600664',
+'600809',
+'601101',
+'601262',
+'601337',
+'601499',
+'601785',
+'601868',
+'630782',
+'630783',
+'630816',
+'637238',
+'640601',
+'640636',
+'640806',
+'646006',
+'646021',
+'651756',
+'651786',
+'652009',
+'652019',
+'657360',
+'657361',
+'657367',
+'657421',
+'662538',
+'662547',
+'662576',
+'662577',
+'675731',
+'675742',
+'675806',
+'675809',
+'675817',
+'675823',
+'675841',
+'675869',
+'675875',
+'684658',
+'684671',
+'684731',
+'684747',
+'684795',
+'684810',
+'684836',
+'684865',
+'684872',
+'689356',
+'689360',
+'689393',
+'689404',
+'689438',
+'689445',
+'689448',
+'689450',
+'689495',
+'689506',
+'689529',
+'689540',
+'689547',
+'689558',
+'689576',
+'689588',
+'689589',
+'689631'
+)
+)loop
+PROC_HEALTH_ENDORSEMENT(rec.assorted_code,rec.emp_code, 'R','16/02/2024',rec.ent_by);
+end loop;
+end ;
+
+select * from ins_claim ic, ins_claim_status ics
+where ic.claim_status_id = ics.claim_status_id
+and ics.claim_status_id = '3'
+and trunc(ent_date) between '21-Mar-2024'and '25-Mar-2024'
+and ic.claim_string like '%130111%'
+

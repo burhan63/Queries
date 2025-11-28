@@ -1,0 +1,9 @@
+-- Policy Sum Covered is exceeding to Cover Note Sum Covered --
+
+=> Yeh error adnan bhai ki taraf sy aye ga endorsement jab bh wo policy kai against
+=> per issue kar rahe hongey tw.
+
+=> karna kuch nh hai bus humain aik function ko chek karna hai uska name hai 
+=> GETOSSUMCOVERED is mai line no : 34 per code likha hai ) WHERE 1=2
+=> agar yeh line commit hai tw commit hata daina hai or bol daina hai kai check 
+=> karlo issue resolved hojaey ga or agar commit nh hai tw commit kardaina hai.

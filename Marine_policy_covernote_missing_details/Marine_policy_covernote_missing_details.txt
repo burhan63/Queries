@@ -1,0 +1,19 @@
+-- Marine Policy / Cover Note missing details issue --
+-- sub sy pehle assorted code or policy type code nikalna hai or front tms mai jakar check 
+--karna hai kai details arahi hain yah nh voyage number wagira blank araha hoga.
+-- Query:
+select * from ins_assorted ia 
+where ia.assorted_string like '%MARINE POLICY / COVER NOTE%';
+
+--then humain ins_forms mai check karna hai assorted_code or policy type code ko 
+-- dal kar kai 37 records aarahe hongey unki record_id = 2 arahi hogi humain us 
+-- record_id ko 1 kai brabar kardaina hai.
+Query:
+select * from ins_forms if
+where if.reference_code = 'policytypecodeassortedcode';
+
+-- Update Query:
+update ins_forms set record_id = 1
+where reference_code = 'policytypecodeassortedcode';
+
+-- front mai jakar check karlaina hai records ajaey gey missing wale.

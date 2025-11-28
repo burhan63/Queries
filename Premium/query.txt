@@ -1,0 +1,15 @@
+PFA
+
+(upload allocation detail)
+
+Ins_premium_mast (header h is ma rcv code verify krna h, UNPOST HONA CHIYE )
+Ins_premium_det (detail h is ma number of rows verify karni h with amount as per sheet)
+Alt+DEE (for delimite short key)
+Alt+DFF (for filter short key)
+
+
+select * from Ins_premium_mast PM
+where pm.premium_rcv_code = ''
+
+select * from Ins_premium_det PD
+where pd.premium_rcv_code = ''

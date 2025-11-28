@@ -1,0 +1,8 @@
+-- Health Claim Start Get List --
+select substr(ic.claim_string,-18,10)Claim_No, ic.claim_code,ic.claim_intimation_date, icd.claim_info_code, 
+ivd.sub_process_id, ivd.is_active
+from pls_health_transactions_detail ivd, ins_claim_due_info icd, ins_claim ic
+where ivd.claim_info_code = icd.claim_info_code
+and icd.claim_code = ic.claim_code
+and sub_process_id = '201'
+and is_active = 'Y'

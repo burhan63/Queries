@@ -1,0 +1,106 @@
+-- how to add tracker --
+--Step No: 01-> Firstly check the policy no or certificate no in following query
+
+select *
+from mt_pr_in_accessories mp  
+where mp.vehicle_detail_code in (select m.vehicle_detail_code
+from mt_vehicles_details m
+where m.assorted_code in (
+select ia.assorted_code
+from ins_assorted ia 
+WHERE (
+ia.assorted_string like '%93454%' or
+ia.assorted_string like '%93457%' or
+ia.assorted_string like '%93458%' or
+ia.assorted_string like '%93459%' or
+ia.assorted_string like '%93460%' or
+ia.assorted_string like '%93461%'
+)
+)
+) for update
+--and then 
+
+--Step No: 02-> Now run the following query 
+
+declare 
+begin
+  for rec in (select *
+from mt_vehicles_details m
+where m.assorted_code in (
+select ia.assorted_code
+from ins_assorted ia 
+WHERE(
+ia.assorted_string like '%93454%' or
+ia.assorted_string like '%93457%' or
+ia.assorted_string like '%93458%' or
+ia.assorted_string like '%93459%' or
+ia.assorted_string like '%93460%' or
+ia.assorted_string like '%93461%'
+)
+--and ia.assorted_code <> '070000155177'
+)
+)loop
+insert into mt_pr_in_accessories
+  (accessory_code, vehicle_detail_code, seq_no, market_value,  status_date, acc_premium, acc_addition_vd_code, 
+  acc_order_no, owned_by, prem_incl, tax_amount, parttaker_code)
+(select mpia.accessory_code, rec.vehicle_detail_code, mpia.seq_no, mpia.market_value, trunc(sysdate),
+mpia.acc_premium, rec.vehicle_detail_code, mpia.acc_order_no, mpia.owned_by, mpia.prem_incl, 
+mpia.tax_amount, mpia.parttaker_code
+from mt_pr_in_accessories mpia
+where mpia.vehicle_detail_code ='1918451');
+end loop;
+end;
+
+
+
+
+
+
+debit 400400100001 
+credit 170100200039
+
+select *
+from gl_voch_det g
+where g.seq_no in('2656013') for update 
+
+--if in policy/certicate no data was blanked so you dont have to need the vehicle_detail_code other wise copy and paste
+--in following partitions.
+
+-- CHECK TRACKER
+SELECT * FROM INS_ACESSORIES IV
+--WHERE IV.ACCESSORY_NAME LIKE '%(I-TECK)%'
+WHERE IV.ACCESSORY_CODE = '0266'
+
+
+--PICK VEHICLE DETAIL CODE OF TRACKER --
+SELECT * FROM MT_PR_IN_ACCESSORIES IMPIA
+WHERE IMPIA.ACCESSORY_CODE = '0266'
+ORDER BY TO_NUMBER(IMPIA.VEHICLE_DETAIL_CODE) DESC
+
+select func_assorted_string(kj.assorted_code)POLICY, hh.vehicle_detail_code, kj.*
+from mt_vehicles_details hh, ins_assorted kj
+where hh.assorted_code = kj.assorted_code
+and hh.vehicle_detail_code = '1829184'
+
+
+select bh.vehicle_detail_code,jh.accessory_code,kj.assorted_code,kj.sup_by,kj.sup_date
+from mt_vehicles_details bh, mt_pr_in_accessories jh, ins_assorted kj
+where bh.vehicle_detail_code = jh.vehicle_detail_code
+and kj.assorted_code = bh.assorted_code
+and kj.document_code = '04'
+and kj.sup_by is not null
+and kj.sup_date is not null
+and jh.owned_by = 'Y'
+and jh.accessory_code in('0266','0272','0280')
+and trunc(kj.ent_date) between '01-Feb-2024' and '29-Feb-2024'
+and kj.is_valid = 'Y';
+
+select * from ins_assorted 
+where(
+assorted_string like '%93454%' or
+assorted_string like '%93457%' or
+assorted_string like '%93458%' or
+assorted_string like '%93459%' or
+assorted_string like '%93460%' or
+assorted_string like '%93461%')
+

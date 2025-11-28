@@ -1,0 +1,12 @@
+-- Revert Health Portal status --
+--Pick claim Code
+select * from ins_claim
+where claim_string like '%162400%'
+
+-- Pick Claim_info_code
+select * from ins_claim_due_info
+where claim_code = '0400214738'
+
+-- Check status 
+select * from pls_health_transactions_detail
+where claim_info_code = '24Dec04303' for update

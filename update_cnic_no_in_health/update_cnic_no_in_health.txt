@@ -1,0 +1,23 @@
+-- Update CNIC On health --
+-- cnic sirf employees per update hoga
+-- sub sy pehle jo sheet apko daiga us mai health ids hogi unhain check karna hai ins_health_employee_info mai 
+select * from ins_health_employee_info ih
+where ih.health_id in();
+
+-- phr apko data aney kai bad empcode per sort karna hai or last endorsement pick karni hain then ins_assorted sy policy_code nikal laina hai.
+
+select * from ins_assorted ia 
+where ia.assorted_code = 'last endorsement';
+
+-- phr policy code pick karne kai bad apko query karni hai or records check karne hain.
+select * from ins_assorted i 
+where nvl(i.policy_code, i.assorted_code) ='Policy Code 04';
+
+
+-- then apko excel mai update ki query banani hai jo yeh hai 
+Query:
+update ins_health_employee_info a set a.nicno='new cnic' 
+where a.health_id ='health_id' and a.assorted_code in 
+(select ia.assorted_code from ins_assorted ia where nvl(ia.policy_code,ia.assorted_code) = 'policy code') and nvl(a.relation, 'E') = 'E';
+
+-- then update kardaina hai.

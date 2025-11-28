@@ -1,0 +1,113 @@
+-- PAYD --
+-- CHECK CLAIM --
+SELECT IC.CLAIM_STATUS_ID,IC.* FROM INS_CLAIM IC 
+WHERE IC.INSURANCE_TYPE = '040000154494';
+
+
+-- PAYD GET DETAILS --
+SELECT * FROM MT_PAY_DETAILS TMP
+WHERE TMP.VEHICLE_DETAIL_CODE = '1721994'
+--WHERE TMP.ASSORTED_CODE = '040000139024'
+AND TRUNC(TMP.BILLING_START_FROM) = '04-May-2024'
+--WHERE TRUNC(TMP.ENT_DATE) = '03-June-2024'        
+ORDER BY TMP.RUNNING_DATE DESC 
+FOR UPDATE;
+
+84.52999999999946
+-- GET MAX PAY_ID --
+SELECT MAX(MP.PAY_ID) FROM MT_PAY_DETAILS MP;
+
+
+-- CHECK DATA --
+SELECT func_get_amount_by_type(IA.ASSORTED_CODE,'GROSS')GROSS,
+func_get_amount_by_type(IA.ASSORTED_CODE,'NET')NET, IA.PAYD_RATE,IA.INTERNAL,ia.remarks,IA.* FROM INS_ASSORTED IA 
+WHERE IA.ASSORTED_CODE = '040000154494' OR IA.POLICY_CODE = '040000154494'; for update
+
+
+select *
+from mt_vehicles_details m
+--where m.addition_vd_code ='1755991'
+where m.assorted_code in ('040000162813','050000713876','050000714405','050000719699') for update 
+
+--REMOVE RENEWAL NOTICE --
+SELECT * FROM INS_ASSORTED 
+where nvl(policy_code , assorted_code)='040000140723'
+WHERE ASSORTED_CODE = '050000737127'
+
+
+-- CHECK VEHICLE --
+SELECT func_assorted_string(VD.ASSORTED_CODE),VD.REG_NO,VD.ENG_NO,VD.CHASSIS_NO,VD.VEHICLE_DETAIL_CODE,
+VD.ASSORTED_CODE,vd.insured_value,vd.change_flag FROM MT_VEHICLES_DETAILS VD
+--where vd.assorted_code='050000737127'
+--WHERE vd.reg_no = 'BHG-699'
+--WHERE VD.ENG_NO = '0300197-J2'
+WHERE VD.VEHICLE_DETAIL_CODE = '1860850' 
+FOR UPDATE
+
+SELECT * FROM INS_ASSORTED 
+WHERE INS_ASSORTED.ASSORTED_CODE = '040000147533'
+
+SELECT cen.notification_email,cen.send_date FROM CRM_EMAIL_NOTIFICATIONS CEN
+WHERE CEN.ASSORTED_CODE IN (
+'050000748849'
+) FOR UPDATE
+
+select * from sy_users sy where sy.user_cd like '%FAZL%';
+
+
+select * from mt_vehicles_details 
+where mt_vehicles_details.assorted_code in (
+'040000136246',
+'050000551227',
+'050000558115',
+'050000563163',
+'050000568509',
+'050000579172',
+'050000594332',
+'050000606935',
+'050000620590',
+'050000631869',
+'050000645754',
+'050000659425',
+'050000676943',
+'050000680237',
+'080000150047'
+)
+
+select func_assorted_string(tde.assorted_code)POLICY,
+func_assorted_string(tde.Endorsement_Code)ENDORSEMENT,TDE.AMOUNT,TDE.ENT_DATE 
+from tmp_payd_adjust_endorsement tde
+
+select * from ins_claim_status 
+where claim_status_id = '0'
+
+SELECT * FROM INS_PARTTAKER IP
+WHERE IP.PARTTAKER_CODE = '08813778'
+AND IP.CATEGORY_PARTTAKER_CODE = '08'
+
+67642
+
+select * from mt_vehicles_details 
+where chassis_no = 'ZRE171R-6079617'
+
+select * from ins_policy_approval 
+where endorsement_code = '050000718162'
+
+select * from ins_assorted 
+where document_code = '04'
+and trunc(ent_date) between '01-Feb-2024' and '29-Feb-2024'
+and sup_by is not null
+and sup_date is not null;
+
+SELECT * FROM CRM_EMAIL_NOTIFICATIONS CRM
+WHERE TRUNC(CRM.ENT_DATE) = '14-May-2024'
+AND CRM.REPORT_NAME LIKE '%PAYD_MTR_INVOICE%'
+order by 1 asc
+
+SELECT * FROM INS_PREMIUM_MAST BN
+WHERE TRUNC(BN.ENT_DATE) = '13-May-2024'
+AND BN.PAYMENT_TYPE = 'Payment PV'
+AND BN.CHEQUE_NO = 'IBFT'
+AND BN.ENT_BY = 'KASHIFAHMED'
+ORDER BY 1 DESC
+

@@ -1,0 +1,22 @@
+OrderID,CustomerName,OrderDate,Quantity,Price,Product,Amount
+1001,Ali Khan ,01/07/2025,1,50,Lays,50
+1002,Sara Malik,02/07/2025,1,60,Lays Big,60
+1003,Burhan Ali,03/07/2025,1,70,Pepsi,70
+1004,Talha Shahid,04/07/2025,1,80,Next Cola,80
+1005,Kashif Sarwar,05/07/2025,1,500,Fiz up,500
+1006,Adil Hasan,06/07/2025,1,620,Cookies,620
+1007,Shahzad Sher Ali,07/07/2025,1,960,Prince,960
+1008,Ali Sajjad Rizwi,08/07/2025,1,770,Prince,770
+1009,Ammar Ali,09/07/2025,1,85,Prince,85
+1010,Hassan Ali,10/07/2025,5,96,Prince,480
+1011,Abdullah Hanif,11/07/2025,3,90,Prince,270
+1012,Osama Ejaz,12/07/2025,6,95,Prince,570
+1013,Sheeraz Qureshi,13/07/2025,8,75,Cocomo,600
+1014,Adnan Anwar,14/07/2025,1,60,Cocomo,60
+1015,Rehan Ahmed,15/07/2025,8,52,Cocomo,416
+1016,Ahsan Hameed,16/07/2025,9,630,Cocomo,5670
+1017,Aliya Saeed,17/07/2025,8,250,Cocomo,2000
+1018,Isfahan Ali,18/07/2025,7,110,Cocomo,770
+1019,Shaniyal Ahmed,19/07/2025,2,130,Slanti,260
+1020,Atif Hussain,20/07/2025,9,150,Ice Cream,1350
+1021,Raja Ikhlaq,21/07/2025,5,200,Ice Cream,1000

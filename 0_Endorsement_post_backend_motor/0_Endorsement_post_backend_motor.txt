@@ -1,0 +1,43 @@
+-- sub sy pehle policy code utha laina hai --
+
+select count(1) from 
+ins_assorted a
+where trunc(issue_date) between '01-nov-2024' and '28-nov-2024'
+and sup_date is null
+and document_code ='05'
+and substr(generate_against,1,2)='07'
+and endorsement_code is not null 
+AND IS_VALID ='N'
+and a.policy_code in
+('040000156558','040000161201','040000157561','040000166453',
+'040000170290','040000167903','040000166934','040000150259',
+'040000157923','040000167946','040000169609','040000167974',
+'040000170260','040000170240','040000171848','040000163015',
+'040000170276','040000172362','040000164334','040000187371',
+'040000183284','040000183741','040000187317','040000185634',
+'040000187481','040000185930','040000184962','040000179307',
+'040000179308','040000172936','040000179310','040000176022',
+'040000175896','040000185853','040000184562','040000187352',
+'040000187805','040000181493','040000181494',
+'040000181499'
+)
+
+
+
+-- posting query --
+-- 0 endorsement --
+declare
+begin
+  for rec in(
+  select * from 
+  ins_assorted a
+  where trunc(issue_date) between '01-July-2025' and '30-July-2025'
+  and sup_date is null
+  and document_code ='05'
+  and substr(generate_against,1,2)='07'
+  and endorsement_code is not null 
+  AND IS_VALID in('N','N')
+  )loop
+  proc_posting_fast('BURHAN',rec.assorted_code,'01');
+  end loop;
+end;

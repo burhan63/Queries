@@ -1,0 +1,101 @@
+-- PAYD ENDORSEMENT GENERATION --
+declare
+
+v_d_c number:=0;
+v_m_c number:=0;
+v_total_contribution number; v_rate number;
+v_max_net number;
+v_net_rate number;
+v_new_rate number;
+v_p_km number;
+v_ass_code varchar2(100);
+v_b_s_date date ; v_b_e_date date;
+
+begin
+
+for new_rec in (SELECT
+               FUNC_ASSORTEd_STRING(nvl(ia.policy_code,ia.assorted_code))policy_no,
+
+               ia.issue_date,ia.period_from,
+               ia.period_to_date,
+               case when add_months(period_from,months_between(sysdate,period_from)) > period_to_date then null
+  else  add_months(period_from ,
+floor(months_between(sysdate,period_from))) end billing_start,
+
+
+
+case when add_months(period_from,months_between(sysdate,period_from))> period_to_date  then null else
+  add_months(period_from ,
+floor(months_between(sysdate,period_from)+1))-1 end billing_end,
+               nvl(ia.pay_as_you_go,'N')pay_as_you_go,
+              
+               vehicle_info(mvd.vehicle_detail_code, 'S')sum_covered,
+             --  vehicle_info(mvd.vehicle_detail_code, 'E')eng_no,
+             --  vehicle_info(mvd.vehicle_detail_code, 'C')chno,
+             --  vehicle_info(mvd.vehicle_detail_code, 'R')regno,
+             --  vehicle_info(mvd.vehicle_detail_code, 'S')sum_covered,
+               --V_UNIQUE_CODE,
+               ia.assorted_code,
+               '17-50-9805-120-46' stno,
+               IA.CLIENT_CODE, mvd.vehicle_detail_code,mvd.vehicle_seq_no,
+           
+               --vpc.NAME,
+               ip.parttaker_name,
+               (select max(rate) from ins_premium
+               where reference_code = ia.assorted_code
+               and  charge_code ='000423')net_rate,
+               nvl(ia.payd_rate,2.5)  default_rate,
+                ''endorsement_no,''endorsement_date,'A' vehicle_status
+          FROM INS_ASSORTED IA, mt_vehicles_details mvd, ins_parttaker ip--, vw_parttaker_category_setup vpc
+         WHERE pay_as_you_go='Y'
+         and    ia.assorted_code = mvd.assorted_code
+         and ia.document_code in ('04','07')
+         and  ia.policy_type_code <>77
+         and   ia.client_code = ip.parttaker_code
+         and   ia.sup_by is not null
+         and  ia.assorted_code not in ('040000096284')
+         --and  trunc(ia.ent_date) >='10-aug-2022'
+         and   mvd.vehicle_detail_code in (
+         1770093
+)
+
+
+
+
+
+
+         )
+
+        -- and  ip.category_type = vpc.CODE)
+         loop
+           
+          --if new_rec.period_from <> new_rec.billing_start and trunc(sysdate)-1 = new_rec.billing_start then
+            
+          
+             select sum(daily_contribution)
+             into v_total_contribution
+             from mt_pay_details
+             where vehicle_detail_code = new_rec.vehicle_detail_code
+             and billing_end_to ='13-Dec-2024'
+             and endorsement_code is null;
+             
+             if v_total_contribution <> 0 then
+             sp_generate_endorsement_paygo(new_rec.assorted_code,
+                                v_total_contribution ,'' ,v_ass_code );
+                                
+             update mt_pay_details
+             set endorsement_code = v_ass_code
+             where vehicle_detail_code = new_rec.vehicle_detail_code
+             and billing_end_to ='13-Dec-2024'; 
+             end if;
+          
+         -- end if;
+          
+         
+         end loop;
+                    
+ end;                   
+ 
+ /*
+select * from ins_assorted
+where  document_code='05' and pay_as_you_go='Y' and trunc(ent_date)= trunc(sysdate) order by 1 desc */

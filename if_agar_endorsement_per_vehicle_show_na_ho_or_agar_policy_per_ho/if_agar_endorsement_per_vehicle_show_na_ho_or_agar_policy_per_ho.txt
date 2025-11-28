@@ -1,0 +1,36 @@
+-- Endorsement Vehicle Missing Process --
+-- Step No : 01 sub sy assorted code pick karna hai 
+select * from Ins_Assorted i
+where i.assorted_string like '%99241%'
+
+
+-- Step No : 02  phr humain vehicles check karni hain kai kis kis per vehicle arahi hai pehle sy
+select (select count(1) from mt_vehicles_details where assorted_code = a.assorted_code)cnt,
+a.*
+ from ins_assorted a
+where nvl(policy_code, assorted_code) = '040000186179'
+
+
+--Example agar policy per vehicle hai or endorsement per nh arahi hai tw ap ko aik procedure hai Endorsement_Vehicle usko test karna hai 
+-- Or yeh parameters select karna hai
+-- assorted_code jiss per nh arahi hai vehicle
+-- generate against jiss per vehicle hai 
+--p_ga_period_flag mai 'A' select karna hai
+--p_period_flag mai 'A' select karna hai
+--p_user_cd mai SYS select karna hai
+--p_action_type mai 'P' select karna hai
+--p_policy_code mai 04 wala code ajaey ga
+--p_policy_type_code is mai policy ki type jo ins_Assorted mai hai wo select karna hai.
+
+
+-- yeh sub karne kai bad apko check karlaina hai kai vehicle agyi hai yah nh if agar ajaey tw apko endorsemt ka premium check karna hai 
+-- agar premium nh araha hoga tw aik procedure hai endorsement_premium us mai yeh parameters select karna hai.
+--p_ga_period_flag mai 'A' select karna hai.
+--p_period_flag mai 'A' select karna hai.
+--p_reference_code mai jiss mai vehicle hai wo laina hai.
+-- p_premium_type_code mai '01' select karna hai.
+--p_cur_reference_code mai jiss mai vehicle nh hai wo assorted_code select karna hai.
+--p_action_type mai 'P' select karna hai.
+-- generate against jiss per vehicle hai.
+--p_policy_code mai 04 wala code ajaey ga.
+--p_policy_type_code is mai policy ki type jo ins_Assorted mai hai wo select karna hai.

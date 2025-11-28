@@ -1,0 +1,13 @@
+-- check seesion --
+select *--resource_name,  current_utilization, max_utilization
+from v$resource_limit 
+where resource_name in ('processes','sessions')
+
+
+select func_assorted_string(ia.assorted_code)POLICY,
+ia.assorted_code,ia.agency_code,iac.assorted_code,iac.commission_amount,ia.sup_by,ia.sup_date
+from ins_assorted ia, ins_assorted_clients iac
+where ia.assorted_code = iac.assorted_code
+and nvl(ia.policy_code, ia.assorted_code) = '040000167197'
+--and ia.assorted_string like '%37870-03-2024%';
+

@@ -1,0 +1,22 @@
+-- Sum Covered not show in Documents Fire --
+-- Sub sy pehle assorted code pick karlaina hai
+Query:
+select * from ins_assorted ia 
+where ia.assorted_string like '%Assorted_string%';
+
+
+-- Assorted code pick karne kai bad uska policy code pick karna hai or assorted_code per sort karna hai.
+Query:
+select * from ins_assorted 
+where nvl(policy_code,assorted_code) = 'Policy Code';
+
+
+-- Sort karne kai bad sub sy pehle yeh daikhna hai kai is per renewal pehle sy tw nh bana hua if agar bana hua hai or endorsement bad 
+mai generate ki hai renewal notice kai bad tw ap ins_assorted_detail mai sy parent_rec_id check kare gey usper renewal notices kai no 
+hongey jiss ki wajah sy sum_covered nh araha hoga.
+
+Query:
+select * from ins_assorted_detail
+where assorted_code = 'assorted_code';
+
+--agar aisa ho tw endorsements ki rec_id , parent_rec_id mai dal daini hai or check karna hai issue resolve hojaey ga InshaAllah.

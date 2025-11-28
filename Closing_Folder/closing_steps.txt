@@ -1,0 +1,107 @@
+-- Closing Steps --
+Step No : 01 sub sy pehle dates check karni hai is query sy if agar koi record aye tw humain check karna assotred_code
+--INVALID DATES
+SELECT * FROM VW_MIS_CONT_WITH_GL A
+  WHERE A.ISSUE_YEAR = TO_CHAR(SYSDATE,'YYYY')
+  AND (ISSUE_POST_MONTH_CHECK='FALSE' OR POST_VOCH_MONTH_CHECK='FALSE' OR 
+  (ISSUE_POLICY_MONTH_CHECK='FALSE' AND DOCUMENT_CODE <> '05' ));
+
+-- seq_no utha kar humain posting date kai lihaz sy voch_date or create_dt change kardai gey
+Query:
+select * from gl_voch_mast
+where seq_no = 'Seq_no';
+
+
+
+-- Step no: 02 Phr humain contribution wali query run karni hai.. is sy humain all classes ka contribution mil jaey ga
+Query:
+select ia.seq_no, to_number(func_get_amount_by_type(ia.assorted_code,'GROSS'))GROSS
+from ins_assorted ia, ins_policy_types ipt
+where trunc(ia.issue_date) between '01-Aug-2025' and '31-Aug-2025'
+and ia.document_code in ('04', '05', '06', '07')
+and ia.sup_date is not null
+and ia.policy_type_code <> 77
+and ia.policy_type_code = ipt.policy_type_code
+--and ipt.class_code = '02'
+--and ia.seq_no='2979613'
+and to_number(func_get_amount_by_type(ia.assorted_code,'GROSS')) <> 0
+
+
+-- or new tab per humain humain aik or query run karni hai 
+Query :
+
+SELECT SUM(DEBIT-CREDIT), A.ACCODE,A.NAME,B.SEQ_NO 
+FROM GL_CHART A, GL_VOCH_MAST B, GL_VOCH_DET C
+WHERE  UPPER(A.NAME) LIKE '%UNEARNED%'
+--and UPPER(A.NAME) LIKE '%ACC%'
+AND  UPPER(A.NAME) NOT LIKE '%R/T%'
+AND   A.ACCODE LIKE '09%'
+AND  A.ACCODE = C.ACCODE
+--and c.accode in ('090100200003', '090100300003', '090100100003')
+AND  B.SEQ_NO = C.SEQ_NO
+AND  TRUNC(B.V_DATE) BETWEEN '01-Aug-2025' and '31-Aug-2025'
+AND   B.CANCEL_BY IS NULL 
+AND  B.V_TYPE='JS'
+--and b.seq_no='2979613'
+GROUP BY A.ACCODE,A.NAME,B.SEQ_NO
+
+
+--dono queries ko run karkai humain excel mai lai jana hai then jahan amount ziada ho wahan @vlookup laga kar check karna hai acc to seq no.
+
+-- if agar figure first query mai ziada arahi hai or second query mai kam arahi hai tw humain yeh check karna hai kai variance kitna araha hai or aik aik seq_no ko lai jakar check karna hai 
+
+-- is sy assorted code nikle ga
+select *
+from ins_assorted ia
+--where ia.assorted_code in ('050000777980') for update
+where ia.seq_no in ('2927447') for update 
+
+-- is mai agar aganecy mismatched hai wo daikhey gey
+select *
+from ins_assorted_clients iac
+where iac.assorted_code='050000775570' for update 
+
+
+-- is mai premium check kare gey kai double tw nh hai
+    select --max(to_number(ip.premium_seqno))+1
+  ip.premium_seqno,ip.premium_type_code, ip.reference_code,ip.ent_by, ip.rate,ip.charge_code, ip.order_no, ip.amount, ip.prev_amount,
+   (ip.amount - ip.prev_amount)diff
+    from     ins_premium ip
+    where ip.reference_code  =  '040000181789'
+    order by to_number(ip.order_no)  for update ;
+    
+   
+    select *
+    from gl_voch_det gvd
+    where gvd.seq_no='2984782' for update 
+    
+2994692 SHAHZADALAM 02/08/2024 12:02:00 pm  050000772156
+2994693 SHAHZADALAM 05/08/2024 11:32:28 am  050000773619
+2994694 SHAHZADALAM 05/08/2024 11:32:28 am  050000775102
+2994695 SHAHZADALAM 09/08/2024 11:13:46 am  050000776935
+
+ 
+   
+    select *
+    from gl_voch_mast gvm
+    where gvm.seq_no in('2984783') for update 
+  
+
+-- if agar health ka case hai endorsement hai tw installemnt check karni hai   
+    select *
+    from ins_installment_master a
+    where a.assorted_code='050000777980'
+    
+    select * from ins_assorted i 
+    where i.generate_against = '050000777980'
+    
+    select * from sy_users sy 
+    where sy.user_cd like '%SHAHZADALAM%'
+    
+    
+    select * from ins_assorted 
+    where nvl(policy_code, assorted_code) = '040000162655'
+
+-- in sub issues resolve karne kai bad humain contribution register new run karna hai tms per sy or hum ko aik working sheet banani hai 
+or us mai sy gross contribution 0 ki values or blank values hata daini hai or figure match karni hai all class per bh or motor per bh
+

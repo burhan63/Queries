@@ -1,0 +1,33 @@
+-- Voucher not show in Petty cash statement --
+
+-- Description:
+-- Vochers bane hue hongey but petty cash statement wali report mai show nh horahe 
+-- hon gey iska reason yeh hota hai kai vochers tw bana diye hote hain per unki
+-- detail nh dali hoti.
+
+-- Step no : 01. check vochers in petty cast.
+-- Query:
+SELECT * FROM gl_petty_cash_mast
+WHERE VOUCHER_NO IN 
+(
+'25-08-0063',
+'25-08-0066',
+'25-08-0079'
+);
+
+-- gl_petty_cash_mast mai sy humain PC_SEQ_NO pick karna hai then humain detail
+-- check karni hai.
+
+-- Step No : 02. check detail in vochers.
+-- Query:
+SELECT * FROM gl_petty_cash_det
+WHERE PC_SEQ_NO IN
+('132193',
+'132170',
+'132173'
+);
+
+
+-- agar detail na arahi ho tw bata daina hai kai vochers ki detail nh hain isi
+-- wajah sy yeh report mai nh arahe hain.
+

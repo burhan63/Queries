@@ -1,0 +1,11 @@
+-- Health Policy Activation and De-Activation --
+Agar apkai pass health mai sy request aye kai policy deactivate karni hai
+tw ins_assorted mai aik column hai cancel_by us mai jakar bus SYS karna hai.
+Query:
+select iz.cancel_by from Ins_Assorted iz
+where iz.assorted_string like '%3371-12-2024%' and iz.policy_type_code = '76'
+for update
+
+-- Agar De-Activate kani hai tw cancel_by mai SYS karna hai 
+-- Agar de-activated policy ko activate karna hai tw cancel_by mai sy SYS 
+remove karna hai.

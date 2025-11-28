@@ -1,0 +1,19 @@
+Step No: 01.
+Sub sy pehle both allocations check karni hai kai kiss mai data mai 
+waise tw old mai data hoga new mai nh or agar tracker ka hai tw mode code 09 
+mai daikhna hai.
+Query:
+select * from ins_premium_det pd
+where pd.premium_rcv_code = 'Allocation_No';
+
+
+Step No: 02
+Phr humain aik update chalani hai jiss mai hum old sy new mai switch kare gey
+Query:
+update ins_premium_det
+set premium_rcv_code ='New Allocation'
+where premium_rcv_code = 'Old Allocation';
+
+-- is sy switch hojaey gi allocation.
+
+Workshop name : OLP Services Pakistan

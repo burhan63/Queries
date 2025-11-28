@@ -1,0 +1,21 @@
+-- how to delete endorsement--
+select func_assorted_string(ia.assorted_code)POLICY, ia.*
+from ins_assorted ia, ins_policy_types ipt
+--where ia.assorted_code = '050000759443'
+where ia.assorted_string like '%44530-08-2024%'
+and ia.policy_type_code = ipt.policy_type_code
+and ia.document_code = '05'
+--and trunc(ia.ent_date) between '01-Dec-2023' and '31-Dec-2023'
+and ipt.class_code = '02'
+--and ia.policy_type_code = '76'
+
+79562
+
+--is mai check karna hai kai pehle agey tw koi endorsement tw nh bani hui 
+--or phr proc_cancel_document procedure mai assorted code dal kar delete kardain
+
+select * from Ins_Policy_class
+where policy_type_code = '85'
+
+select * from ins_assorted k 
+where k.endorsement_code = '050000775630'

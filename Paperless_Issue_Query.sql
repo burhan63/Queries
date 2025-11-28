@@ -1,0 +1,64 @@
+-- PAPERLESS ISSUE --
+SELECT * FROM INS_CLAIM IC 
+WHERE IC.CLAIM_STRING LIKE '%88025%' for update 
+
+SELECT * FROM PLS_TRANSACTION_HEADER PTH
+WHERE PTH.TXN_REF = '0700045090'
+
+SELECT * FROM PLS_TRANSACTION_DETAILS PTD
+WHERE PTD.TXN_HEADER_ID = '44682' for update;
+
+SELECT * FROM PLS_SUB_PROCESS_MASTER
+WHERE SUB_PROCESS_ID = '119'
+
+
+
+-- SURVEY PORTAL NOT SHOW --
+SELECT * FROM INS_CLAIM I
+WHERE I.CLAIM_STRING LIKE '%88172%' for update
+1689197
+040000150778
+
+select *
+from mt_vehicles_details m
+where m.addition_vd_code='1858902'
+AND m.assorted_code='070000158354'
+where m.vehicle_detail_code='1689197'
+
+
+SELECT * FROM INS_CLAIM_SERVEYOR ICS
+WHERE ICS.CLAIM_CODE = '0700045152';
+
+
+SELECT * FROM INS_PARTTAKER IP
+WHERE IP.PARTTAKER_CODE = '03000090';
+
+
+SELECT * FROM SURVEY_PORTAL_CLAIM_STATUS A 
+WHERE A.CLAIM_CODE = '0700045090';
+
+
+
+-- CHECK CLAIM SHOW USING QUERY --
+SELECT * FROM VW_SURVEY_PORTAL_ACTIVE_NEW
+WHERE CLAIM_CODE = '0700045090'
+
+SELECT * FROM SY_USERS WHERE USER_CD LIKE '%RASHIDAMIN%'
+
+select * from ins_parttaker ip 
+where ip.parttaker_code = '27000262'
+and ip.category_parttaker_code = '27'
+
+
+select * from mt_vehicles_details
+where vehicle_detail_code ='1891166'
+or assorted_code ='070000157433'
+
+1689197
+
+select * from mt_vehicles_details
+where 
+
+95100
+
+
